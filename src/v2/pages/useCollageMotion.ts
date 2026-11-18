@@ -8,6 +8,7 @@ const INTRO_FALLBACK_MS = 3000
  *  - `.is-intro`  (hero): its video fades up once the first frame is ready.
  *  - every `.presentation__media`: parallax — the picture drifts slightly against
  *    its frame while scrolling, so each frame reads like a window.
+ *  - `.presentation`: gets `.is-at-end` while the footer is on screen (nav → teal).
  * Styling lives in Presentation.css; this only toggles classes.
  */
 export function useCollageMotion(rootRef: RefObject<HTMLElement | null>) {
@@ -68,7 +69,16 @@ export function useCollageMotion(rootRef: RefObject<HTMLElement | null>) {
       window.addEventListener('resize', schedule)
     }
 
+    // --- Page end: once the footer is on screen, `.is-at-end` on .presentation turns the nav teal ---
+    const page = root.closest<HTMLElement>('.presentation')
+    const footer = root.querySelector<HTMLElement>('.presentation__footer')
+    const endObserver = new IntersectionObserver(([entry]) => {
+      page?.classList.toggle('is-at-end', entry.isIntersecting)
+    })
+    if (footer) endObserver.observe(footer)
+
     return () => {
+      endObserver.disconnect()
       observer.disconnect()
       cancelAnimationFrame(frame)
       window.removeEventListener('scroll', schedule)

@@ -97,6 +97,13 @@
   padding-bottom: clamp(40px, 5.556vw, 80px);
 }
 
+/* --- Nav at the page end ---
+   Black/white over the photos as usual; once the footer is on screen
+   (.is-at-end, set by useCollageMotion) the whole nav turns teal to match it. */
+.presentation.is-at-end .site-nav [data-adaptive] {
+  color: var(--color-cyan);
+}
+
 /* --- Motion -------------------------------------------------------------
    Classes toggled by useCollageMotion.ts. */
 

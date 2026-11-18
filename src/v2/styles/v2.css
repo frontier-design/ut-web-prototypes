@@ -10,7 +10,6 @@
   /* Colors (footer mockup) */
   --color-earth: #4a2f23;
   --color-cyan: #38c0c9; /* wordmark + footer text */
-  --nav-light: var(--color-cyan); /* nav colour over dark backgrounds (instead of white) */
   --color-ink: #000000;
 
   /* Type scale */

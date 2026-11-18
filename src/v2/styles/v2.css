@@ -1,0 +1,34 @@
+/* ==========================================================================
+   V2 styles — tokens. Shared reset, grid and fonts live in shared/styles/
+   ========================================================================== */
+
+.v2 {
+  /* Fonts */
+  --font-serif: 'STK Bureau Serif', Georgia, serif;
+  --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Colors (footer mockup) */
+  --color-earth: #4a2f23;
+  --color-cyan: #38c0c9; /* wordmark + footer text */
+  --color-ink: #000000;
+
+  /* Type scale */
+  --text-ui: 15px;
+  --tracking-ui: -0.3px;
+  --text-body: 18px;
+  --tracking-body: -0.36px;
+  --leading-ui: 1.3;   /* Figma: 1 — opened up for readability */
+  --leading-body: 1.35; /* Figma: 1 — opened up for readability */
+
+  font-family: var(--font-helvetica);
+  color: var(--color-ink);
+  background: var(--color-earth);
+}
+
+.v2 a {
+  text-decoration: none;
+}
+
+.v2 a:hover {
+  text-decoration: underline;
+}

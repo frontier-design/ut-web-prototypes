@@ -1,0 +1,78 @@
+/* Mockup: 80px below the wordmark; less on small screens */
+.site-footer__meta {
+  margin-top: clamp(40px, 5.556vw, 80px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px 80px;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+.site-footer__offices {
+  display: flex;
+  gap: 16px;
+}
+
+.site-footer__offices address {
+  font-style: normal;
+  width: 231px;
+}
+
+.site-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 20px 80px;
+  white-space: nowrap;
+}
+
+.site-footer__email {
+  display: flex;
+  flex-direction: column;
+  width: 176px;
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 2px;
+}
+
+/* --- Mobile: stack everything on one left edge with even spacing --- */
+@media (max-width: 767px) {
+  .site-footer__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .site-footer__offices {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 24px 16px;
+  }
+
+  /* side by side when there's room, stacked on very narrow phones */
+  .site-footer__offices address {
+    width: auto;
+    flex: 1 1 170px;
+  }
+
+  .site-footer__contact {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 32px 16px;
+  }
+
+  .site-footer__email {
+    width: auto;
+  }
+
+  .site-footer__contact > :last-child {
+    grid-column: 1 / -1;
+  }
+}

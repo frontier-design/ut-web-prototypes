@@ -1,0 +1,24 @@
+/* Root page: just the two prototype links, top-left on the grid margin */
+.version-index {
+  padding-block: 31px; /* same top offset as the site nav */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.version-index nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.version-index a {
+  text-decoration: none;
+}
+
+.version-index a:hover,
+.version-index a:focus-visible {
+  text-decoration: underline;
+}

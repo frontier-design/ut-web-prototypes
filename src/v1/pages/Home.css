@@ -1,0 +1,188 @@
+/* ==========================================================================
+   V1 Home — main (cream) section. Hero, nav and footer have their own CSS.
+   ========================================================================== */
+
+/* Figma: 40px top / bottom inside the cream section */
+.v1-main {
+  padding-block: 40px;
+  background: var(--color-cream);
+}
+
+/* --- Intro line --------------------------------------------------------
+   Figma: 70px Bureau Serif Light, the logo sitting in a 480px first-line indent.
+   Sizes are in em so logo, indent and type scale together. */
+.v1-intro {
+  position: relative;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  padding-right: 10px; /* Figma text box is 1350 of 1360 */
+}
+
+.v1-intro__logo {
+  position: absolute;
+  left: 0.014em; /* 1px */
+  top: 0.068em;
+  width: 6.557em; /* 459px */
+  height: auto;
+}
+
+.v1-intro__text {
+  display: block;
+  text-indent: 6.857em; /* 480px */
+}
+
+/* Figma: projects start 111px below the intro */
+.v1-main__grid {
+  margin-top: 110px;
+}
+
+/* --- Projects: columns 1–7 ---------------------------------------------- */
+.v1-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* Same column rhythm as the page grid: 7 columns inside a 7-column span */
+.v1-project__images {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  align-items: end;
+}
+
+.v1-project__image {
+  grid-column: span var(--cols);
+  overflow: hidden;
+}
+
+.v1-project__image img,
+.v1-studio__figure img {
+  display: block;
+  width: 100%;
+  height: 100%; /* fills the wrapper's aspect-ratio box */
+  object-fit: cover;
+}
+
+/* Studio photos carry their own aspect-ratio (the figure also holds a caption) */
+.v1-studio__figure img {
+  height: auto;
+}
+
+/* Figma: caption 16px under the image; title · year 9px apart; disciplines below (same size, grey) */
+.v1-project__caption {
+  margin-top: 16px;
+}
+
+.v1-project__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+.v1-project__year {
+  margin-left: 5px; /* + the word space ≈ Figma's 9px */
+  color: var(--color-muted);
+}
+
+.v1-project__disciplines {
+  margin-top: 2px;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+  color: var(--color-muted);
+}
+
+/* --- Studio column: columns 10–12 --------------------------------------- */
+.v1-studio {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.v1-studio__statement {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+  line-height: var(--leading-body);
+}
+
+.v1-studio__figure figcaption {
+  margin-top: 12px; /* mockup */
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+/* Figma: services sit 78px below the last photo (36px gap + 42px) */
+.v1-services {
+  margin-top: 42px;
+}
+
+.v1-services__label {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-ink);
+  font-family: var(--font-helvetica);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+.v1-services__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  list-style: none;
+}
+
+.v1-services__list h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+  line-height: var(--leading-body);
+}
+
+.v1-services__list p {
+  margin-top: 8px;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+/* Phones: single images run the full width */
+@media (max-width: 767px) {
+  .v1-project__image:only-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- Below desktop: one column, studio after the projects --------------- */
+@media (max-width: 1023px) {
+  .v1-main__grid {
+    margin-top: 64px;
+    row-gap: 80px;
+  }
+}
+
+/* Anchor jumps (nav links) land below the fixed nav bar */
+#studio,
+#services,
+#projects,
+#contact {
+  scroll-margin-top: 80px;
+}

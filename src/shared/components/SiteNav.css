@@ -1,0 +1,46 @@
+.site-nav {
+  position: fixed;
+  top: 31px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav__logo img {
+  width: 104.5px; /* Figma 95px, +10% */
+  height: auto;
+  transition: filter 0.25s ease;
+}
+
+.site-nav__links {
+  display: flex;
+  gap: 4px;
+}
+
+/* --- Adaptive tone (set on .site-nav by useAdaptiveTone) ---
+   One tone for the whole nav:
+   dark  = black on light backgrounds (default)
+   light = white on dark backgrounds */
+.site-nav [data-adaptive] {
+  color: #000;
+  transition: color 0.25s ease;
+}
+
+.site-nav[data-tone='light'] [data-adaptive] {
+  color: #fff;
+}
+
+/* The logo SVG is black; invert it to white on dark backgrounds */
+.site-nav[data-tone='light'] .site-nav__logo img {
+  filter: invert(1);
+}

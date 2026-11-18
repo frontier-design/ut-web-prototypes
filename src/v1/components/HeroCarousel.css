@@ -1,0 +1,89 @@
+/* Figma hero is 1440×1016; here it fills the viewport height instead */
+.v1-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--color-earth);
+}
+
+.v1-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* on top so the nav's colour sampling reads the visible clip */
+.v1-hero__video.is-active {
+  z-index: 1;
+  opacity: 1;
+}
+
+/* Figma: centred, bottom edge ~88px above the hero's bottom, 14.2px apart */
+.v1-hero__thumbs {
+  position: absolute;
+  left: 50%;
+  bottom: 88px;
+  z-index: 2;
+  display: flex;
+  gap: 14.2px;
+  transform: translateX(-50%);
+}
+
+.v1-hero__thumb {
+  position: relative;
+  width: 82.72px;
+  height: 46.58px;
+  padding: 0;
+  border: 0;
+  border-radius: 2.45px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.v1-hero__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.v1-hero__thumb:hover img {
+  transform: scale(1.06);
+}
+
+/* Timer: a thin white inside stroke on the active thumbnail, drawn around
+   clockwise from the top-left as the clip plays (offset set from JS).
+   (Figma had a static 4.9px cyan stroke.) */
+.v1-hero__timer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.v1-hero__timer rect {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  /* gap slightly longer than the path so "empty" (offset 100) leaves no
+     zero-length dash at the closing point — that rendered as a white dot */
+  stroke-dasharray: 100 101;
+  stroke-dashoffset: 100;
+}
+
+/* Only the counting-down thumbnail shows its outline */
+.v1-hero__thumb:not(.is-active) .v1-hero__timer {
+  opacity: 0;
+}
+
+.v1-hero__thumb:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}

@@ -1,0 +1,14 @@
+/* STK Bureau Serif (trial) — shared by v1 and v2.
+   Weights: 300 Light · 350 Book · 400 Regular · 500 Medium · 600 SemiBold · 700 Bold */
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 300; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Light-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 300; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Light-Italic-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 350; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Book-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 350; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Book-Italic-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 400; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Regular-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 400; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Italic-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 500; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Medium-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 500; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Medium-Italic-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 600; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-SemiBold-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 600; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-SemiBold-Italic-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 700; font-style: normal;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Bold-Trial.otf') format('opentype'); }
+@font-face { font-family: 'STK Bureau Serif'; font-weight: 700; font-style: italic;  font-display: swap; src: url('../../assets/fonts/Bureau Serif/otf/STKBureauSerif-Bold-Italic-Trial.otf') format('opentype'); }

@@ -1,0 +1,140 @@
+/* Figma frame is 1440 wide; --u converts Figma px to the current viewport. */
+.presentation {
+  container-type: inline-size;
+  position: relative;
+}
+
+.presentation {
+  --u: calc(100cqw / 1440);
+}
+
+/* --- Scrolling collage --- */
+.presentation__collage {
+  position: relative;
+  z-index: 1;
+  overflow: clip;
+}
+
+.presentation__backdrop,
+.presentation__media {
+  position: absolute;
+  left: calc(var(--x, 0) * var(--u));
+  top: calc(var(--y, 0) * var(--u));
+}
+
+/* Figma "Rectangle 61": earth background behind the photos */
+.presentation__backdrop {
+  --x: 6;
+  --y: 201;
+  width: calc(1449 * var(--u));
+  height: calc(6655 * var(--u));
+  background: var(--color-earth);
+}
+
+.presentation__media {
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  overflow: hidden;
+}
+
+.presentation__media.is-rounded {
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* Slight black tint over a video for legibility (opacity set via `overlay` in MEDIA) */
+.presentation__media.has-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--overlay, 0.2);
+  pointer-events: none;
+}
+
+.presentation__media img,
+.presentation__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Stacking order ---
+   backdrop 0 · 'back' media 1 · wordmark 2 · 'front' media 3 */
+.presentation__backdrop { z-index: 0; }
+.presentation__media.is-back { z-index: 1; }
+.presentation__media.is-front { z-index: 3; }
+
+/* --- Sticky wordmark ---
+   A spacer puts it in normal flow at the footer position (Figma y=6338).
+   `bottom` keeps it pinned to the viewport bottom until the page scrolls it into place.
+   Use the spacer, not margin-top: a sticky element's margin box must stay inside its
+   parent, so a big margin would leave it no room to move.
+   (overflow: clip on the collage is fine for sticky; overflow: hidden would break it.) */
+.presentation__wordmark-spacer {
+  height: calc(6338 * var(--u));
+}
+
+.presentation__wordmark {
+  position: sticky;
+  bottom: var(--grid-gutter); /* 20px from the viewport bottom */
+  z-index: 2;
+  pointer-events: none;
+}
+
+.presentation__wordmark img {
+  width: 100%;
+  height: auto;
+}
+
+/* --- Footer block ---
+   In normal flow so it can never be clipped when text wraps on narrow screens.
+   Spacing from the footer mockup: 80px under the wordmark, 80px to the page end. */
+.presentation__footer {
+  position: relative;
+  color: var(--color-cyan);
+  padding-bottom: clamp(40px, 5.556vw, 80px);
+}
+
+/* --- Motion -------------------------------------------------------------
+   Classes toggled by useCollageMotion.ts. */
+
+/* Intro: hero video (and its tint) fade up over the brown once ready.
+   The frame itself is solid earth, so the wordmark behind it stays covered meanwhile. */
+.presentation__media.is-intro {
+  background: var(--color-earth);
+}
+
+.presentation__media.is-intro video,
+.presentation__media.is-intro::after {
+  transition: opacity 1.4s ease;
+}
+
+.presentation__media.is-intro:not(.is-ready) video,
+.presentation__media.is-intro:not(.is-ready)::after {
+  opacity: 0;
+}
+
+/* Parallax "window": the picture is slightly oversized and drifts against its frame.
+   --p (−1 → 1, set by useCollageMotion) is the frame's position relative to the
+   viewport centre; the scale gives (1.2 − 1) / 2 = 10% of headroom on each side,
+   enough for the ±9% travel. */
+.presentation__media > img,
+.presentation__media > video {
+  transform: translate3d(0, calc(var(--p, 0) * -9%), 0) scale(1.2);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presentation__media > img,
+  .presentation__media > video {
+    transform: none;
+  }
+
+  .presentation__media.is-intro video,
+  .presentation__media.is-intro::after {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}

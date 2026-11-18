@@ -1,0 +1,61 @@
+/* Mockup: same cream as the page (no band), 40px top and bottom */
+.v1-footer {
+  padding-block: 40px;
+  background: var(--color-cream);
+}
+
+.v1-footer__headline {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+.v1-footer__headline a {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.v1-footer__headline a:hover {
+  text-decoration: none;
+}
+
+/* Figma: logo, 36px, then details in groups 16px apart */
+.v1-footer__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.v1-footer__logo {
+  display: block;
+  width: 100%;
+  max-width: 322px;
+  height: auto;
+}
+
+.v1-footer__details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+.v1-footer__details address {
+  font-style: normal;
+}
+
+.v1-footer__details a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1023px) {
+  .v1-footer__aside {
+    margin-top: 40px;
+  }
+}

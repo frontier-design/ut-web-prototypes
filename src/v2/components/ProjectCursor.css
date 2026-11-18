@@ -1,0 +1,36 @@
+/* Native hand cursor over project media */
+[data-project] {
+  cursor: pointer;
+}
+
+/* Outer element follows the mouse (transform set from JS) */
+.project-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Label centred just above the pointer */
+.project-cursor__inner {
+  color: #fff;
+  transform: translate(-50%, calc(-100% - 6px));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  /* keeps white legible on bright photos */
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.25));
+}
+
+.project-cursor.is-visible .project-cursor__inner {
+  opacity: 1;
+}
+
+.project-cursor__label {
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  letter-spacing: -0.345px;
+  white-space: nowrap;
+}
+

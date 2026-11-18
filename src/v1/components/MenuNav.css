@@ -1,0 +1,276 @@
+/* ==========================================================================
+   Alternative v1 nav — bar + full-screen menu
+   ========================================================================== */
+
+/* --- Bar: same placement / type as the shared nav --- */
+.v1-menubar {
+  position: fixed;
+  top: 31px;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: 18px;
+}
+
+.v1-menubar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v1-menubar__logo img {
+  display: block;
+  width: 104.5px;
+  height: auto;
+  transition: filter 0.25s ease;
+}
+
+.v1-menubar__toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.v1-menubar__toggle:hover {
+  text-decoration: underline;
+}
+
+/* Adaptive tone (set by useAdaptiveTone) */
+.v1-menubar [data-adaptive] {
+  color: #000;
+  transition: color 0.25s ease;
+}
+
+.v1-menubar[data-tone='light'] [data-adaptive] {
+  color: #fff;
+}
+
+.v1-menubar[data-tone='light'] .v1-menubar__logo img {
+  filter: invert(1);
+}
+
+/* Open: whatever sits over the cyan goes black. Full menu → logo + toggle;
+   side panel → only "Close" (the logo stays over the page, so stays adaptive). */
+.v1-menubar.is-open .v1-menubar__toggle,
+.v1-menubar--full.is-open [data-adaptive] {
+  color: #000;
+}
+
+.v1-menubar--full.is-open .v1-menubar__logo img {
+  filter: none;
+}
+
+/* --- Full-screen menu --- */
+.v1-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: flex;
+  background: var(--color-brand-cyan);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0s linear 0.4s;
+}
+
+.v1-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease;
+}
+
+/* clears the bar at the top, 40px margin at the bottom */
+.v1-menu__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 120px;
+  padding-bottom: 40px;
+}
+
+.v1-menu__grid {
+  align-items: end;
+}
+
+.v1-menu__links {
+  list-style: none;
+}
+
+.v1-menu__links a {
+  display: inline-block;
+}
+
+/* Page names in the display serif (same as the intro and footer headlines) */
+.v1-menu__label {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.1;
+  /* fine line: a touch heavier than the 1px rules so it holds up under 70px type */
+  text-underline-position: from-font;
+  text-decoration-thickness: 1.5px;
+  text-decoration-skip-ink: none;
+}
+
+.v1-menu__links a:hover .v1-menu__label,
+.v1-menu__links a:focus-visible .v1-menu__label {
+  text-decoration-line: underline; /* longhand, so the thickness above isn't reset */
+}
+
+/* Links rise in one after another on open */
+.v1-menu__links li {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.v1-menu.is-open .v1-menu__links li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.1s + var(--i) * 0.05s);
+}
+
+/* Contact: same type as the footer details */
+.v1-menu__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-ui);
+  line-height: var(--leading-ui);
+}
+
+.v1-menu__contact a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1023px) {
+  .v1-menu__contact {
+    margin-top: 40px;
+  }
+}
+
+/* --- Side panel (?nav=half) --- */
+.v1-menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 54;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  transition:
+    opacity 0.5s ease,
+    visibility 0s linear 0.5s;
+}
+
+.v1-menu-scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+}
+
+/* Slides in from the right edge and covers the last --menu-cols grid columns —
+   at desktop that's columns 10–12, the same column as the studio text on the page.
+   Its text starts exactly on the column line (one grid margin inside the edge). */
+.v1-menu--half {
+  --menu-cols: 3;
+  --cw: min(100vw, var(--grid-max-width)); /* container width, incl. margins */
+  --col: calc((var(--cw) - 2 * var(--grid-margin) - 11 * var(--grid-gutter)) / 12);
+  --outer: calc((100vw - var(--cw)) / 2 + var(--grid-margin)); /* screen edge → column 12's edge */
+  left: auto;
+  width: calc(
+    var(--grid-margin) + var(--menu-cols) * var(--col) + (var(--menu-cols) - 1) * var(--grid-gutter) +
+      var(--outer)
+  );
+  opacity: 1;
+  transform: translateX(100%);
+  transition:
+    transform 0.7s cubic-bezier(0.65, 0, 0.2, 1),
+    visibility 0s linear 0.7s;
+}
+
+.v1-menu--half.is-open {
+  transform: none;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.2, 1);
+}
+
+/* Links under the bar, contact pinned to the bottom; 40px margins like the page */
+.v1-menu__panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 120px var(--grid-margin) var(--grid-margin);
+  overflow-y: auto;
+}
+
+.v1-menu--half .v1-menu__panel {
+  padding-right: var(--outer);
+}
+
+.v1-menu--half .v1-menu__links li {
+  transform: translateX(24px);
+}
+
+.v1-menu--half.is-open .v1-menu__links li {
+  transform: none;
+  transition-delay: calc(0.25s + var(--i) * 0.05s);
+}
+
+/* Contact stacked, like the footer details in the same column */
+.v1-menu--half .v1-menu__contact {
+  margin-top: 0;
+}
+
+/* Narrower screens: a few more columns so the 70px links still fit */
+@media (max-width: 1279px) {
+  .v1-menu--half {
+    --menu-cols: 4;
+  }
+}
+
+@media (max-width: 1023px) {
+  .v1-menu--half {
+    --menu-cols: 6;
+  }
+}
+
+/* Phones: the panel takes the full width, so the logo sits on cyan → black */
+@media (max-width: 767px) {
+  .v1-menu--half {
+    width: 100vw;
+  }
+
+  .v1-menubar--half.is-open [data-adaptive] {
+    color: #000;
+  }
+
+  .v1-menubar--half.is-open .v1-menubar__logo img {
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v1-menu,
+  .v1-menu.is-open,
+  .v1-menu-scrim,
+  .v1-menu-scrim.is-open,
+  .v1-menu__links li,
+  .v1-menu.is-open .v1-menu__links li,
+  .v1-menu--half .v1-menu__links li {
+    transition: none;
+    transform: none;
+  }
+}

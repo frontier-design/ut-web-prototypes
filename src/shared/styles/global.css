@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Global styles
+   ========================================================================== */
+
+:root {
+  /* Grid */
+  --grid-columns: 12;
+  --grid-gutter: 20px;
+  --grid-margin: 40px;
+  --grid-max-width: 1440px;
+
+  /* Breakpoints (reference only — CSS vars can't be used in media queries)
+     sm: 640px   md: 768px   lg: 1024px   xl: 1280px */
+
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-muted: #6b6b6b;
+  --color-grid-overlay: rgba(255, 0, 80, 0.08);
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.15;
+  overflow-wrap: break-word;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+#root {
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   12-column grid
+   .container  → max-width wrapper with 40px side margins
+   .grid       → 12 columns, 20px gutters
+   .col        → spans columns via --span / --span-sm / --span-md / --span-lg / --span-xl
+   Mobile-first: each breakpoint falls back to the one below it.
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--grid-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  row-gap: var(--grid-row-gap, var(--grid-gutter));
+}
+
+.col {
+  --_span: var(--span, 12);
+  --_start: var(--start, auto);
+  grid-column: var(--_start) / span var(--_span);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .col {
+    --_span: var(--span-sm, var(--span, 12));
+    --_start: var(--start-sm, var(--start, auto));
+  }
+}
+
+@media (min-width: 768px) {
+  .col {
+    --_span: var(--span-md, var(--span-sm, var(--span, 12)));
+    --_start: var(--start-md, var(--start-sm, var(--start, auto)));
+  }
+}
+
+@media (min-width: 1024px) {
+  .col {
+    --_span: var(--span-lg, var(--span-md, var(--span-sm, var(--span, 12))));
+    --_start: var(--start-lg, var(--start-md, var(--start-sm, var(--start, auto))));
+  }
+}
+
+@media (min-width: 1280px) {
+  .col {
+    --_span: var(--span-xl, var(--span-lg, var(--span-md, var(--span-sm, var(--span, 12)))));
+    --_start: var(--start-xl, var(--start-lg, var(--start-md, var(--start-sm, var(--start, auto)))));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Grid overlay (toggle with Ctrl + G)
+   -------------------------------------------------------------------------- */
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.grid-overlay .container,
+.grid-overlay .grid {
+  height: 100%;
+}
+
+.grid-overlay .col {
+  background: var(--color-grid-overlay);
+}

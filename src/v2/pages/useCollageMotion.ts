@@ -9,6 +9,7 @@ const INTRO_FALLBACK_MS = 3000
  *  - every `.presentation__media`: parallax — the picture drifts slightly against
  *    its frame while scrolling, so each frame reads like a window.
  *  - `.presentation`: gets `.is-at-end` while the footer is on screen (nav → teal).
+ *  - `.presentation__wordmark-spacer`: stretched so the last screen is image-free.
  * Styling lives in Presentation.css; this only toggles classes.
  */
 export function useCollageMotion(rootRef: RefObject<HTMLElement | null>) {
@@ -77,7 +78,29 @@ export function useCollageMotion(rootRef: RefObject<HTMLElement | null>) {
     })
     if (footer) endObserver.observe(footer)
 
+    // --- Clean last screen: the final viewport shows only the wordmark + footer on brown ---
+    // Grows the wordmark spacer so the page ends at least one viewport below the last
+    // image (never shorter than the Figma position set in CSS). Re-runs on resize and
+    // when the footer reflows (fonts loading, text wrapping).
+    const spacer = root.querySelector<HTMLElement>('.presentation__wordmark-spacer')
+    const media = [...root.querySelectorAll<HTMLElement>('.presentation__media')]
+    const fitEnd = () => {
+      if (!spacer) return
+      spacer.style.height = ''
+      const mediaBottom = Math.max(...media.map((el) => el.offsetTop + el.offsetHeight))
+      const spacerBottom = spacer.offsetTop + spacer.offsetHeight
+      const endBlock = root.offsetHeight - spacerBottom // wordmark + footer
+      const needed = mediaBottom + window.innerHeight - endBlock - spacer.offsetTop
+      if (needed > spacer.offsetHeight) spacer.style.height = `${Math.ceil(needed)}px`
+    }
+    fitEnd()
+    const endResize = new ResizeObserver(fitEnd)
+    if (footer) endResize.observe(footer)
+    window.addEventListener('resize', fitEnd)
+
     return () => {
+      endResize.disconnect()
+      window.removeEventListener('resize', fitEnd)
       endObserver.disconnect()
       observer.disconnect()
       cancelAnimationFrame(frame)

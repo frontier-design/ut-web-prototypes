@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, type CSSProperties } from 'react'
 import logoNav from '../assets/logo-nav.svg'
 import { useAdaptiveTone } from '../hooks/useAdaptiveTone'
 import './SiteNav.css'
@@ -12,8 +12,9 @@ interface SiteNavProps {
 
 /**
  * Fixed top navigation, shared by v1 and v2. The whole nav switches between black
- * and white together, based on the average brightness of the image/video/colour
- * behind its items. Expects --text-ui / --tracking-ui from the version's tokens.
+ * and a light colour together (white, or the version's `--nav-light`), based on the
+ * average brightness of the image/video/colour behind its items.
+ * Expects --text-ui / --tracking-ui from the version's tokens.
  */
 export function SiteNav({ homeHref, contactHref = 'mailto:studio@urbantypology.com' }: SiteNavProps) {
   const ref = useRef<HTMLElement>(null)
@@ -23,7 +24,8 @@ export function SiteNav({ homeHref, contactHref = 'mailto:studio@urbantypology.c
     <header className="site-nav" ref={ref}>
       <div className="container site-nav__inner">
         <a href={homeHref} className="site-nav__logo" aria-label="Urbantypology home" data-adaptive>
-          <img src={logoNav} width={104.5} height={15.32} alt="" />
+          {/* Logo drawn as a mask filled with currentColor, so it always matches the links */}
+          <span className="site-nav__logo-mark" style={{ '--logo': `url("${logoNav}")` } as CSSProperties} />
         </a>
         <nav className="site-nav__links" aria-label="Main" data-adaptive>
           <a href="#studio">Studio,</a>

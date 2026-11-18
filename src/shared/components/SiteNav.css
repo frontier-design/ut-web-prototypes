@@ -16,10 +16,13 @@
   justify-content: space-between;
 }
 
-.site-nav__logo img {
+.site-nav__logo-mark {
+  display: block;
   width: 104.5px; /* Figma 95px, +10% */
-  height: auto;
-  transition: filter 0.25s ease;
+  aspect-ratio: 95.2827 / 14.1633; /* logo-nav.svg */
+  background-color: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
 }
 
 .site-nav__links {
@@ -30,17 +33,12 @@
 /* --- Adaptive tone (set on .site-nav by useAdaptiveTone) ---
    One tone for the whole nav:
    dark  = black on light backgrounds (default)
-   light = white on dark backgrounds */
+   light = --nav-light on dark backgrounds (white unless the version sets it) */
 .site-nav [data-adaptive] {
   color: #000;
   transition: color 0.25s ease;
 }
 
 .site-nav[data-tone='light'] [data-adaptive] {
-  color: #fff;
-}
-
-/* The logo SVG is black; invert it to white on dark backgrounds */
-.site-nav[data-tone='light'] .site-nav__logo img {
-  filter: invert(1);
+  color: var(--nav-light, #fff);
 }
